@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm sản phẩm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function fillCurrentTime() {
+            var currentDate = new Date();
+            var formattedDate = currentDate.toISOString().slice(0, 10);
+            document.getElementById("created_At").value = formattedDate;
+        }
+        /*]]>*/
+    </script>
+</head>
+<body onload="fillCurrentTime()">
+<div class="container">
+    <h1>THÊM SẢN PHẨM</h1>	
+    <hr>
+    <h2>Nhập thông tin sản phẩm muốn thêm!</h2>
+
+    <form action="#" th:action="@{/saveProduct}" th:object="${product}" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="text" th:field="*{id}" class="form-control mb-4" placeholder="ID" oninput="updateProductIds(this.value)">
+                    <input type="hidden" th:field="*{productImage[0].product_id}" id="productId0" />
+					<input type="hidden" th:field="*{productImage[1].product_id}" id="productId1" />
+					<input type="hidden" th:field="*{productImage[2].product_id}" id="productId2" />
+					<input type="hidden" th:field="*{productImage[3].product_id}" id="productId3" />
+
+        
+                    <script>
+                        function updateProductIds(value) {
+                            document.getElementById('productId0').value = value;
+                            document.getElementById('productId1').value = value;
+                            document.getElementById('productId2').value = value;
+                            document.getElementById('productId3').value = value;
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="category_id">Loại sản phẩm:</label>
+                    <select th:field="*{category.id}" class="form-control mb-4">
+                        <option value="1">Coffee</option>
+                        <option value="2">Frosty</option>
+                        <option value="3">Tea</option>
+                        <option value="4">Other</option>
+                        <option value="5">Bakery</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="created_at">Ngày tạo:</label>
+                    <input type="text" th:field="*{created_At}" id="created_At" class="form-control mb-4" placeholder="YYYY/MM/DD">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" th:field="*{description}" class="form-control mb-4" placeholder="Description">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="is_active">Is Active:</label>
+                    <input type="text" th:field="*{is_Active}" class="form-control mb-4" placeholder="Is Active">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="is_selling">Is Selling:</label>
+                    <input type="text" th:field="*{is_Selling}" class="form-control mb-4" placeholder="Is Selling">
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="text" th:field="*{price}" class="form-control mb-4" placeholder="Price">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="product_name">Product Name	:</label>
+                    <input type="text" th:field="*{product_Name}" class="form-control mb-4" placeholder="Product Name">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="text" th:field="*{quantity}" class="form-control mb-4" placeholder="Quantity">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sold">Sold:</label>
+                    <input type="text" th:field="*{sold}" class="form-control mb-4" placeholder="Sold">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="image1">Hình ảnh 1:</label>
+                    <input type="text" th:field="*{productImage[0].url_Image}" class="form-control mb-4" placeholder="URL Hình ảnh 1">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="image2">Hình ảnh 2:</label>
+                    <input type="text" th:field="*{productImage[1].url_Image}" class="form-control mb-4" placeholder="URL Hình ảnh 2">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="image3">Hình ảnh 3:</label>
+                    <input type="text" th:field="*{productImage[2].url_Image}" class="form-control mb-4" placeholder="URL Hình ảnh 3">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="image4">Hình ảnh 4:</label>
+                    <input type="text" th:field="*{productImage[3].url_Image}" class="form-control mb-4" placeholder="URL Hình ảnh 4">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-info col-2 mt-3 mx-auto">Thêm sản phẩm</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/list_product}">Trở về danh sách</a>
+</div>
+
+</body>
+</html>

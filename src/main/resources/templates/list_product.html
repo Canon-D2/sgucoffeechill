@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Trang sản phẩm</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="/listeo/css/style.css">
+	<link rel="stylesheet" href="/listeo/css/main-color.css" id="colors">
+	<link rel="icon" href="http://ttcntt.sgu.edu.vn/wp-content/uploads/2018/11/SGU-LOGO.png">
+</head>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+    .btn {
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    .btn-primary {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .btn-danger {
+        background-color: #f44336;
+        color: white;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .pagination a {
+        padding: 8px 12px;
+        margin: 0 5px;
+        text-decoration: none;
+        color: #333;
+        background-color: #ddd;
+        border-radius: 4px;
+    }
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    #logo {
+	    display: flex;
+	    align-items: center;
+	    background: linear-gradient(to right, #FF0000, #FFA500);
+	}
+	.dashboard-nav
+	{
+		background: linear-gradient(to right, #FF0000, #FFA500);
+	}
+	#logo img {
+	    max-height: 80px; /* Điều chỉnh kích thước tối đa theo nhu cầu */
+	    max-width: 100%;
+	}
+	#logo a {
+	    margin-left: 50px; /* Điều chỉnh khoảng cách giữa logo và các phần khác nếu cần */
+	}
+	@media only screen and (max-width: 767px) {
+	    #logo img {
+	        max-height: 40px; /* Điều chỉnh kích thước tối đa trên thiết bị di động */
+	    }
+	}
+    td img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<body>
+
+	<div id="wrapper">
+		<header id="header-container" class="fixed fullwidth dashboard">
+			<div id="header" class="not-sticky">
+				<div class="container">
+				
+					<div class="left-side">
+						<div id="logo">
+							<a th:href="@{/redirect}"><img src="/images/logo.png" alt=""></a>
+							<a th:href="@{/redirect}" class="dashboard-logo"><img
+								src="/images/logo.png" alt=""></a>
+						</div>
+						<div class="mmenu-trigger">
+							<button class="hamburger hamburger--collapse" type="button">
+								<span class="hamburger-box"> <span
+									class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="right-side">
+						<div class="header-widget">
+							<div class="user-menu">
+								<div class="user-name">
+									<span><img th:src="${session.admin.avatar}" alt=""></span>Tài khoản
+								</div>
+								<ul>
+									<li><a th:href="@{/dashboard}"><i
+											class="sl sl-icon-settings"></i> Tổng quan</a></li>
+									<li><a th:href="@{/dashboard-orders}"><i
+											class="sl sl-icon-envelope-open"></i> Hóa đơn</a></li>
+									<li><a th:href="@{/dashboard-wallet}"><i
+											class="fa fa-calendar-check-o"></i> Ví dịch vụ</a></li>
+									<li><a th:href="@{/list_user}"><i
+											class="sl sl-icon-user"></i> Tài khoản</a></li>
+									<li><a th:href="@{/list_product}"><i 
+											class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+									<li><a th:href="@{/contact_gpt}"><i 
+											class="sl sl-icon-question"></i> Hỗ trợ</a></li>
+									<li><a th:href="@{/chat_socket}"><i 
+											class="sl sl-icon-bubbles"></i> Nhắn tin</a></li>
+									<li><a th:href="@{/terms_service}"><i 
+										class="sl sl-icon-directions"></i> Chính sách</a></li>
+									<li><a th:href="@{/logout-admin}"><i
+											class="sl sl-icon-power"></i> Đăng xuất</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="clearfix"></div>
+		<div id="dashboard">
+
+
+			<a href="#" class="dashboard-responsive-nav-trigger"><i
+				class="fa fa-reorder"></i> Dashboard Navigation</a>
+			<div class="dashboard-nav">
+				<div class="dashboard-nav-inner">
+
+					<ul data-submenu-title="Main">
+						<li><a th:href="@{/dashboard}"><i
+								class="sl sl-icon-settings"></i> Tổng quan</a></li>
+						<li><a th:href="@{/dashboard-orders}"><i
+								class="fa fa-calendar-check-o"></i> Hóa đơn</a></li>
+						<li><a th:href="@{/dashboard-wallet}"><i
+								class="sl sl-icon-wallet"></i> Ví dịch vụ</a></li>
+						<li><a th:href="@{/list_user}"><i
+								class="sl sl-icon-user"></i> Tài khoản</a></li>
+						<li class="active"><a th:href="@{/list_product}"><i 
+								class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+						<li><a th:href="@{/contact_gpt}"><i 
+								class="sl sl-icon-question"></i> Hỗ trợ</a></li>
+						<li><a th:href="@{/chat_socket}"><i 
+								class="sl sl-icon-bubbles"></i> Nhắn tin</a></li>
+						<li><a th:href="@{/terms_service}"><i 
+								class="sl sl-icon-directions"></i> Chính sách</a></li>
+						<li><a th:href="@{/logout-admin}"><i
+								class="sl sl-icon-power"></i> Đăng xuất</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!------------------------------Start------------------------------------------------->
+			<div class="dashboard-content">
+				<div id="titlebar">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Quản lí sản phẩm</h2>
+							<nav id="breadcrumbs">
+								<ul>
+									<li><a href="#">Home</a></li>
+									<li>Sản phẩm</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+				
+			<div class="container my-2">
+        
+                <a th:href="@{/showNewProductForm}" class="btn btn-primary btn-sm mb-3"> Thêm sản phẩm </a>
+        
+                <table border="1" class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+                                    ID
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=category_id&sortDir=' + ${reverseSortDir}}">
+                                    Category
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=created_at&sortDir=' + ${reverseSortDir}}">
+                                    Tạo vào
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">
+                                    Mô tả
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=is_active&sortDir=' + ${reverseSortDir}}">
+                                    Is Active
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=is_selling&sortDir=' + ${reverseSortDir}}">
+                                    Is Selling
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
+                                    Price
+                                </a>
+                            </th>
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=product_name&sortDir=' + ${reverseSortDir}}">
+                                    Product Name
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=quantity&sortDir=' + ${reverseSortDir}}">
+                                    Quantity
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=sold&sortDir=' + ${reverseSortDir}}">
+                                    Sold
+                                </a>
+                            </th>
+                            <th>
+                                <a th:href="@{'/pageProduct/' + ${currentPage} + '?sortField=sold&sortDir=' + ${reverseSortDir}}">
+                                    Image
+                                </a>
+                            </th>
+                            
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                        <tr th:each="product : ${listProduct}">
+                            <td th:text="${product.id}"></td>
+                            <td th:text="${product.category.id}"></td>
+                            <td th:text="${product.created_At}"></td>
+                            <td th:text="${product.description}"></td>
+                            <td th:text="${product.is_Active}"></td>
+                            <td th:text="${product.is_Selling}"></td>
+                            <td th:text="${product.price}"></td>
+                            <td th:text="${product.product_Name}"></td>
+                            <td th:text="${product.quantity}"></td>
+                            <td th:text="${product.sold}"></td>
+                             <td>
+                                <span th:each="image : ${product.getProductImage()}">
+                                    <img th:src="${image.url_Image}" alt="Product Image" style="max-width: 100px; max-height: 100px;"/>
+                                </span>
+                            </td>
+        
+                            <td>
+                                <a th:href="@{/updateListProduct/{id}(id=${product.id})}" class="btn btn-primary">Sửa</a>
+                                <a th:href="@{/deleteProduct/{id}(id=${product.id})}" class="btn btn-danger">Xóa</a>
+                            </td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+                <div th:if="${totalPages > 1}">
+                        <div class="row col-sm-10">
+                            <div class="col-sm-2">
+                                Total Rows: [[${totalItems}]]
+                            </div>
+                            <div class="col-sm-7">
+                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                    <a th:if="${currentPage != i}" th:href="@{'/pageProduct/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                </span>
+                            </div>
+                            <div class="col-sm-1">
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/pageProduct/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                                <span th:unless="${currentPage < totalPages}">Next</span>
+                            </div>
+            
+                            <div class="col-sm-1">
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/pageProduct/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                                <span th:unless="${currentPage < totalPages}">Last</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<!----------------------------- End ---------------------------------------------------->
+			
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="/scripts/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript"
+		src="/scripts/jquery-migrate-3.3.2.min.js"></script>
+	<script type="text/javascript" src="/scripts/mmenu.min.js"></script>
+	<script type="text/javascript" src="/scripts/chosen.min.js"></script>
+	<script type="text/javascript" src="/scripts/slick.min.js"></script>
+	<script type="text/javascript" src="/scripts/rangeslider.min.js"></script>
+	<script type="text/javascript" src="/scripts/magnific-popup.min.js"></script>
+	<script type="text/javascript" src="/scripts/waypoints.min.js"></script>
+	<script type="text/javascript" src="/scripts/counterup.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/scripts/tooltips.min.js"></script>
+	<script type="text/javascript" src="/scripts/custom.js"></script>
+	<script src="/scripts/moment.min.js"></script>
+	<script src="/scripts/daterangepicker.js"></script>
+
+	<script>
+		$(function() {
+
+			var start = moment().subtract(29, 'days');
+			var end = moment();
+
+			function cb(start, end) {
+				$('#booking-date-range span').html(
+						start.format('MMMM D, YYYY') + ' - '
+								+ end.format('MMMM D, YYYY'));
+			}
+			cb(start, end);
+			$('#booking-date-range').daterangepicker(
+					{
+						"opens" : "left",
+						"autoUpdateInput" : false,
+						"alwaysShowCalendars" : true,
+						startDate : start,
+						endDate : end,
+						ranges : {
+							'Today' : [ moment(), moment() ],
+							'Yesterday' : [ moment().subtract(1, 'days'),
+									moment().subtract(1, 'days') ],
+							'Last 7 Days' : [ moment().subtract(6, 'days'),
+									moment() ],
+							'Last 30 Days' : [ moment().subtract(29, 'days'),
+									moment() ],
+							'This Month' : [ moment().startOf('month'),
+									moment().endOf('month') ],
+							'Last Month' : [
+									moment().subtract(1, 'month').startOf(
+											'month'),
+									moment().subtract(1, 'month')
+											.endOf('month') ]
+						}
+					}, cb);
+
+			cb(start, end);
+
+		});
+
+		// Cài đặt hình ảnh và hoạt ảnh lịch
+		$('#booking-date-range')
+				.on(
+						'show.daterangepicker',
+						function(ev, picker) {
+							$('.daterangepicker')
+									.addClass(
+											'calendar-visible calendar-animated bordered-style');
+							$('.daterangepicker')
+									.removeClass('calendar-hidden');
+						});
+		$('#booking-date-range').on('hide.daterangepicker',
+				function(ev, picker) {
+					$('.daterangepicker').removeClass('calendar-visible');
+					$('.daterangepicker').addClass('calendar-hidden');
+				});
+	</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Trang đăng nhập</title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="http://ttcntt.sgu.edu.vn/wp-content/uploads/2018/11/SGU-LOGO.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="/image/png" href="images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/admin/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/admin/css/main.css">
+	<script src='https://www.google.com/recaptcha/api.js?hl=vi'></script>
+</head>
+<style>
+.container-login100 
+{
+	background: linear-gradient(to right, #8e44ad, #3498db);
+}
+</style>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+		<div class="wrap-login100 left-frame" style="position: relative; text-align: center;">
+		 <img src="images/login_back.jpg" alt="" style="position: absolute; top: 0; left: 0; width: 100%;">
+		    <div style="position: relative; text-align: center;">     
+		        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6697269761844!2d106.67968337493251!3d10.759917089387816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b7c3ed289%3A0xa06651894598e488!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTw6BpIEfDsm4!5e0!3m2!1svi!2s!4v1709384846605!5m2!1svi!2s" width="600" height="325" style="border:0;"></iframe>
+		        <video height="315px" width="560px" src="/video/intro.mp4" type="video/mp4" autoplay controls loop id="vid" muted style="position: relative; "> </video>
+		    </div>
+		</div>
+
+			<div class="wrap-login100">
+				<form action="signin-admin" method="post" class="login100-form validate-form">
+					<span class="login100-form-title p-b-48 d-flex justify-content-center">
+						<img src="images/logo1.png" alt="" style="width: 55%; height: auto;">
+					</span>
+
+					
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<input class="input100" type="text" name="login-name">
+						<span class="focus-input100" data-placeholder="User Name"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="pass">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+					<p th:if="${err_sign_admin != null}" th:text="${err_sign_admin}" style="color: red; margin-bottom: 10px;"></p>
+					
+					<!-- ReCapCha -->
+                    <div class="g-recaptcha" data-sitekey="6Lc7qQsmAAAAAD4KHU04xef_E6OYf0cUQPpSlgwz"
+                        data-callback="verifyCaptcha"></div>
+                    <input type="hidden" name="captchaVerified" id="captchaVerified" value="false"><br>
+                
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">Đăng nhập</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div id="dropDownSelect1"></div>
+	<script src="/admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/admin/vendor/animsition/js/animsition.min.js"></script>
+	<script src="/admin/vendor/bootstrap/js/popper.js"></script>
+	<script src="/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/admin/vendor/select2/select2.min.js"></script>
+	<script src="/admin/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/admin/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="/admin/vendor/countdowntime/countdowntime.js"></script>
+	<script src="/admin/js/main.js"></script>
+	<script>
+	 	document.getElementById('vid').play();
+        $(document).ready(function () {
+            $('form.login100-form').submit(function (event) {
+                var isCaptchaVerified = $('#captchaVerified').val();
+                if (isCaptchaVerified !== 'true') {
+                    alert('Vui lòng xác thực CAPTCHA trước khi đăng nhập.');
+                    //event.preventDefault(); // Ngăn chặn gửi form nếu CAPTCHA chưa được xác thực
+                }
+            });
+
+            // Hàm gọi khi CAPTCHA được xác thực thành công
+            window.verifyCaptcha = function () {
+                $('#captchaVerified').val('true');
+            };
+        });
+    </script>
+
+</body>
+</html>

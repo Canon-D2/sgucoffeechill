@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Trang tổng quan</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="/listeo/css/style.css">
+	<link rel="stylesheet" href="/listeo/css/main-color.css" id="colors">
+	<link rel="icon" href="http://ttcntt.sgu.edu.vn/wp-content/uploads/2018/11/SGU-LOGO.png">
+</head>
+<style>
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+#logo img {
+    max-height: 80px; /* Điều chỉnh kích thước tối đa theo nhu cầu */
+    max-width: 100%;
+}
+#logo a {
+    margin-left: 50px; /* Điều chỉnh khoảng cách giữa logo và các phần khác nếu cần */
+}
+@media only screen and (max-width: 767px) {
+    #logo img {
+        max-height: 40px; /* Điều chỉnh kích thước tối đa trên thiết bị di động */
+    }
+}
+</style>
+<body>
+
+	<div id="wrapper">
+
+		<header id="header-container" class="fixed fullwidth dashboard">
+			<div id="header" class="not-sticky">
+				<div class="container">
+					<div class="left-side">
+						<div id="logo">
+							<a th:href="@{/redirect}"><img src="images/logo.png" alt=""></a>
+							<a th:href="@{/redirect}" class="dashboard-logo"><img
+								src="images/logo_in.png" alt=""></a>
+						</div>
+						<div class="mmenu-trigger">
+							<button class="hamburger hamburger--collapse" type="button">
+								<span class="hamburger-box"> <span
+									class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="right-side">
+						<!-- Header Widget -->
+						<div class="header-widget">
+							<div class="user-menu">
+								<div class="user-name">
+									<span><img th:src="${session.admin.avatar}" alt=""></span>Tài khoản
+								</div>
+								<ul>
+									<li><a th:href="@{/dashboard}"><i
+											class="sl sl-icon-settings"></i> Tổng quan</a></li>
+									<li><a th:href="@{/dashboard-orders}"><i
+											class="sl sl-icon-envelope-open"></i> Hóa đơn</a></li>
+									<li><a th:href="@{/dashboard-wallet}"><i
+											class="fa fa-calendar-check-o"></i> Ví dịch vụ</a></li>
+									<li><a th:href="@{/list_user}"><i
+											class="sl sl-icon-user"></i> Tài khoản</a></li>
+									<li><a th:href="@{/list_product}"><i 
+											class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+									<li><a th:href="@{/contact_gpt}"><i 
+											class="sl sl-icon-question"></i> Giúp đỡ</a></li>
+									<li><a th:href="@{/logout-admin}"><i
+											class="sl sl-icon-power"></i> Đăng xuất</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+		<div class="clearfix"></div>
+		<div id="dashboard">
+
+			<a href="#" class="dashboard-responsive-nav-trigger"><i
+				class="fa fa-reorder"></i> Dashboard Navigation</a>
+
+			<div class="dashboard-nav">
+				<div class="dashboard-nav-inner">
+
+					<ul data-submenu-title="Main">
+						<li class="active"><a th:href="@{/dashboard}"><i
+								class="sl sl-icon-settings"></i> Tổng quan</a></li>
+						<li><a th:href="@{/dashboard-orders}"><i
+								class="fa fa-calendar-check-o"></i> Hóa đơn</a></li>
+						<li><a th:href="@{/dashboard-wallet}"><i
+								class="sl sl-icon-wallet"></i> Ví dịch vụ</a></li>
+						<li><a th:href="@{/list_user}"><i
+								class="sl sl-icon-user"></i> Tài khoản</a></li>
+						<li><a th:href="@{/list_product}"><i 
+								class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+						<li><a th:href="@{/contact_gpt}"><i 
+								class="sl sl-icon-question"></i> Giúp đỡ</a></li>
+						<li><a th:href="@{/logout-admin}"><i
+								class="sl sl-icon-power"></i> Đăng xuất</a></li>
+					</ul>
+				</div>
+			</div>
+
+
+			<!-------------------------------Start------------------------------------------------------------>
+			
+			<div class="dashboard-content">
+
+				<div id="titlebar">
+					<div class="row">
+						<div class="col-md-12">
+							
+							<h2 th:text="'Xin chào, ' + ${session.admin.user_Name + '!'}"></h2>
+							
+							<nav id="breadcrumbs">
+								<ul>
+									<li><a href="#">Home</a></li>
+									<li>Tổng quan</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" >
+
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-1">
+							<div class="dashboard-stat-content">
+								<h4 th:text="${Total_Order}"></h4>
+								<span>Tổng hóa đơn</span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="im im-icon-Add-Bag"></i>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-2">
+							<div class="dashboard-stat-content">
+								<h4 th:text="${Total_Product}"></h4>
+								<span>Tổng sản phẩm</span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="im im-icon-Polo-Shirt"></i>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-3">
+							<div class="dashboard-stat-content">
+								<h4 th:text="${Total_User}"></h4>
+								<span>Tổng người dùng</span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="im im-icon-Add-UserStar"></i>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-4">
+							<div class="dashboard-stat-content">
+								<h4 th:text="${Total_Category}"></h4>
+								<span>Tổng thể loại</span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="im im-icon-Box-withFolders"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!---------------------------------- End --------------------------------------------------------->
+			
+		</div>
+	</div>
+
+
+	<!-- Scripts
+================================================== -->
+	<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript"
+		src="scripts/jquery-migrate-3.3.2.min.js"></script>
+	<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+	<script type="text/javascript" src="scripts/chosen.min.js"></script>
+	<script type="text/javascript" src="scripts/slick.min.js"></script>
+	<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+	<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+	<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+	<script type="text/javascript" src="scripts/counterup.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+	<script type="text/javascript" src="scripts/custom.js"></script>
+
+</body>
+</html>

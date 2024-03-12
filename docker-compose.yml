@@ -1,0 +1,34 @@
+version: '3'
+services:
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/sgucoffee?useSSL=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+      - SPRING_DATASOURCE_USERNAME=2BeioBahcpGjocK.root
+      - SPRING_DATASOURCE_PASSWORD=SVAvA24ubVC6ML6r
+    # Đặt biến môi trường dựa trên môi trường Docker
+    #depends_on:
+      #- db
+
+  #db:
+    #image: mysql:latest
+    #ports:
+     # - "3306:3306"
+    #environment:
+      #MYSQL_ROOT_PASSWORD: 123
+   # restart: always
+
+  #phpmyadmin:
+    #image: phpmyadmin
+    #restart: always
+   # ports:
+    #  - 8081:80
+    #depends_on:
+     # - db
+    #environment:
+      #- PMA_ARBITRARY=1

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Trang nhắn tin</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="/listeo/css/style.css">
+	<link rel="stylesheet" href="/listeo/css/main-color.css" id="colors">
+	<link rel="icon" href="http://ttcntt.sgu.edu.vn/wp-content/uploads/2018/11/SGU-LOGO.png">
+	<link rel="stylesheet" href="/css/chat_sk.css" />
+</head>
+<style>
+	#logo {
+	    display: flex;
+	    align-items: center;
+	    background: linear-gradient(to right, #FF0000, #FFA500);
+	}
+	.dashboard-nav
+	{
+		background: linear-gradient(to right, #FF0000, #FFA500);
+	}
+	#logo img {
+	    max-height: 80px; /* Điều chỉnh kích thước tối đa theo nhu cầu */
+	    max-width: 100%;
+	}
+	#logo a {
+	    margin-left: 50px; /* Điều chỉnh khoảng cách giữa logo và các phần khác nếu cần */
+	}
+	@media only screen and (max-width: 767px) {
+	    #logo img {
+	        max-height: 40px; /* Điều chỉnh kích thước tối đa trên thiết bị di động */
+	    }
+	}
+	
+</style>
+<body>
+
+	<div id="wrapper">
+		<header id="header-container" class="fixed fullwidth dashboard">
+			<div id="header" class="not-sticky">
+				<div class="container">
+				
+					<div class="left-side">
+						<div id="logo">
+							<a th:href="@{/redirect}"><img src="/images/logo.png" alt=""></a>
+							<a th:href="@{/redirect}" class="dashboard-logo"><img
+								src="/images/logo.png" alt=""></a>
+						</div>
+						<div class="mmenu-trigger">
+							<button class="hamburger hamburger--collapse" type="button">
+								<span class="hamburger-box"> <span
+									class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="right-side">
+						<div class="header-widget">
+							<div class="user-menu">
+								<div class="user-name">
+									<span><img th:src="${session.admin.avatar}" alt=""></span>Tài khoản
+								</div>
+								<ul>
+									<li><a th:href="@{/dashboard}"><i
+											class="sl sl-icon-settings"></i> Tổng quan</a></li>
+									<li><a th:href="@{/dashboard-orders}"><i
+											class="sl sl-icon-envelope-open"></i> Hóa đơn</a></li>
+									<li><a th:href="@{/dashboard-wallet}"><i
+											class="fa fa-calendar-check-o"></i> Ví dịch vụ</a></li>
+									<li><a th:href="@{/list_user}"><i
+											class="sl sl-icon-user"></i> Tài khoản</a></li>
+									<li><a th:href="@{/list_product}"><i 
+											class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+									<li><a th:href="@{/contact_gpt}"><i 
+											class="sl sl-icon-question"></i> Hỗ trợ</a></li>
+									<li><a th:href="@{/chat_socket}"><i 
+											class="sl sl-icon-bubbles"></i> Nhắn tin</a></li>
+									<li><a th:href="@{/terms_service}"><i 
+										class="sl sl-icon-directions"></i> Chính sách</a></li>
+									<li><a th:href="@{/logout-admin}"><i
+											class="sl sl-icon-power"></i> Đăng xuất</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div id="dashboard">
+
+			<a href="#" class="dashboard-responsive-nav-trigger"><i
+				class="fa fa-reorder"></i> Dashboard Navigation</a>
+			<div class="dashboard-nav">
+				<div class="dashboard-nav-inner">
+
+					<ul data-submenu-title="Main">
+						<li><a th:href="@{/dashboard}"><i
+								class="sl sl-icon-settings"></i> Tổng quan</a></li>
+						<li><a th:href="@{/dashboard-orders}"><i
+								class="fa fa-calendar-check-o"></i> Hóa đơn</a></li>
+						<li><a th:href="@{/dashboard-wallet}"><i
+								class="sl sl-icon-wallet"></i> Ví dịch vụ</a></li>
+						<li><a th:href="@{/list_user}"><i
+								class="sl sl-icon-user"></i> Tài khoản</a></li>
+						<li><a th:href="@{/list_product}"><i 
+								class="sl sl-icon-bag"></i> Sản phẩm</a></li>
+						<li><a th:href="@{/contact_gpt}"><i 
+								class="sl sl-icon-question"></i> Hỗ trợ</a></li>
+						<li class="active"><a th:href="@{/chat_socket}"><i 
+								class="sl sl-icon-bubbles"></i> Nhắn tin</a></li>
+						<li><a th:href="@{/terms_service}"><i 
+								class="sl sl-icon-directions"></i> Chính sách</a></li>
+						<li><a th:href="@{/logout-admin}"><i
+								class="sl sl-icon-power"></i> Đăng xuất</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!------------------------------Start------------------------------------------------->
+			
+			<div class="dashboard-content">
+				<div id="titlebar">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Nhắn tin</h2>
+							<!-- Breadcrumbs -->
+							<nav id="breadcrumbs">
+								<ul>
+									<li><a href="#">Home</a></li>
+									<li>Nhắn tin</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+
+				<div id="username-page">
+				    <div class="username-page-container">
+				        <h2 class="title">Bắt đầu nhắn tin với</h2>
+				        <form id="usernameForm" name="usernameForm">
+				            <div class="form-group">
+				                <input type="text" id="name" autocomplete="off" class="form-control" th:value="${session.admin.user_Name}" readonly/>
+				            </div>
+				            <div class="form-group">
+				                <button type="submit" class="accent username-submit">Vào phòng</button>
+				            </div>
+				        </form>
+				    </div>
+				</div>
+				
+				<div id="chat-page" class="hidden">
+				    <div class="chat-container">
+				        <div class="chat-header">
+				            <h2>Hộp thoại tin nhắn</h2>
+				        </div>
+				        <div class="connecting"> Đang kết nối... </div>
+				        <ul id="messageArea">
+				
+				        </ul>
+				        <form id="messageForm" name="messageForm">
+				            <div class="form-group">
+				                <div class="input-group clearfix">
+				                    <input type="text" id="message" placeholder="Nhập tin nhắn ở đây..." autocomplete="off" class="form-control"/>
+				                    <button type="submit" class="primary">Gửi</button>
+				                </div>
+				            </div>
+				        </form>
+				    </div>
+				</div>
+			
+				</div>
+			</div>
+			
+			<!----------------------------- End ---------------------------------------------------->
+			
+		</div>
+	</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+'use strict';
+
+var usernamePage = document.querySelector('#username-page');
+var chatPage = document.querySelector('#chat-page');
+var usernameForm = document.querySelector('#usernameForm');
+var messageForm = document.querySelector('#messageForm');
+var messageInput = document.querySelector('#message');
+var messageArea = document.querySelector('#messageArea');
+var connectingElement = document.querySelector('.connecting');
+
+var stompClient = null;
+var username = null;
+
+var colors = [
+    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
+    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+];
+
+function connect(event) {
+    username = document.querySelector('#name').value.trim();
+
+    if(username) {
+        usernamePage.classList.add('hidden');
+        chatPage.classList.remove('hidden');
+
+        var socket = new SockJS('/chat_socket');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, onConnected, onError);
+    }
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+
+    // Tell your username to the server
+    stompClient.send("/app/chat.addUser",
+        {},
+        JSON.stringify({sender: username, type: 'JOIN'})
+    )
+
+    connectingElement.classList.add('hidden');
+}
+
+
+function onError(error) {
+    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.style.color = 'red';
+}
+
+
+function sendMessage(event) {
+    var messageContent = messageInput.value.trim();
+    if(messageContent && stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: messageInput.value,
+            type: 'CHAT'
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+    event.preventDefault();
+}
+
+
+function onMessageReceived(payload) {
+    var message = JSON.parse(payload.body);
+
+    var messageElement = document.createElement('li');
+
+    if(message.type === 'JOIN') {
+        messageElement.classList.add('event-message');
+        message.content = message.sender + ' đã tham gia!';
+    } else if (message.type === 'LEAVE') {
+        messageElement.classList.add('event-message');
+        message.content = message.sender + ' left!';
+    } else {
+        messageElement.classList.add('chat-message');
+
+        var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(message.sender[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+        messageElement.appendChild(avatarElement);
+
+        var usernameElement = document.createElement('span');
+        var usernameText = document.createTextNode(message.sender);
+        usernameElement.appendChild(usernameText);
+        messageElement.appendChild(usernameElement);
+    }
+
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(message.content);
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+
+function getAvatarColor(messageSender) {
+    var hash = 0;
+    for (var i = 0; i < messageSender.length; i++) {
+        hash = 31 * hash + messageSender.charCodeAt(i);
+    }
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+}
+
+usernameForm.addEventListener('submit', connect, true)
+messageForm.addEventListener('submit', sendMessage, true)
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm tài khoản</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="http://ttcntt.sgu.edu.vn/wp-content/uploads/2018/11/SGU-LOGO.png">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h2 class="text-center mb-4">Nhập thông tin tài khoản muốn thêm!</h2>
+
+        <div class="form-container">
+            <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="id">ID:</label>
+                            <input type="text" th:field="*{id}" class="form-control mb-4" placeholder="ID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="avatar">Avatar:</label>
+                            <input type="text" th:field="*{avatar}" class="form-control mb-4" placeholder="Avatar">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" th:field="*{email}" class="form-control mb-4" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="login_Type">Login Type:</label>
+                            <input type="text" th:field="*{login_Type}" class="form-control mb-4" placeholder="Login Type">
+                        </div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+            				<input type="text" th:field="*{password}" class="form-control mb-4" placeholder="Password">
+                        </div>
+                    </div>   
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone_Number">Phone Number:</label>
+            				<input type="text" th:field="*{phone_Number}" class="form-control mb-4" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="role">Role:</label>
+                            <select th:field="*{role}" class="form-control mb-4">
+                                <option value="admin">admin</option>
+                                <option value="user">user</option>
+                            </select>
+                        </div>
+                    </div>                 
+                </div>
+                
+                <div class="row">
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="user_Name">User Name:</label>
+            				<input type="text" th:field="*{user_Name}" class="form-control mb-4" placeholder="User Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+            				<input type="text" th:field="*{address}" class="form-control mb-4" placeholder="Address">
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info col-2 mt-3 mx-auto">Tạo tài khoản</button>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+
+        <a th:href="@{/list_user}" class="text-center d-block">Trở về danh sách</a>
+    </div>
+	
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Bắt sự kiện khi form được submit
+            document.querySelector('form').addEventListener('submit', function (event) {
+                // Lấy giá trị của ID và mật khẩu
+                var idValue = document.querySelector('input[name="id"]').value;
+                var passwordValue = document.querySelector('input[name="password"]').value;
+
+                // Kiểm tra xem ID và mật khẩu có trống không
+                if (idValue.trim() === '' || passwordValue.trim() === '') {
+                    // Nếu có, ngăn chặn form được submit và hiển thị thông báo
+                    event.preventDefault();
+                    alert('ID và mật khẩu không được để trống!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

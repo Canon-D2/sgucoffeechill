@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa tài khoản</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function fillCurrentTime() {
+            var currentDate = new Date();
+            var formattedDate = currentDate.toISOString().slice(0, 10);
+            document.getElementById("created_At").value = formattedDate;
+        }
+        /*]]>*/
+    </script>
+</head>
+
+<body onload="fillCurrentTime()">
+    <div class="container">
+        <h1>Sửa sản phẩm</h1>
+        <hr>
+        <h2>Nhập thông tin muốn sửa!</h2>
+
+        <form action="#" th:action="@{/saveProduct}" th:object="${product}" method="POST">
+			
+			<!-- ProductImage(product_Id) == Product(id) Kiểu khóa chính liên kết khóa ngoại -->
+			
+			<!-- Lấy id của bảng sản phẩm -->
+            <input type="hidden" th:field="*{id}" />
+            
+            <!-- Lấy product_Id và id của bảng hình ảnh sản phẩm -->
+            <div th:each="image, iterStat : ${product.productImage}">
+		        <input type="hidden" th:field="*{productImage[__${iterStat.index}__].product_id}">
+		        <input type="hidden" th:field="*{productImage[__${iterStat.index}__].id}">
+		    </div>
+		    
+		    <!-- ------------------------------------------------------------------------------------------------------ -->
+
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select th:field="*{category.id}" class="form-control mb-4">
+                            <option value="1">Coffee</option>
+                            <option value="2">Frosty</option>
+                            <option value="3">Tea</option>
+                            <option value="4">Other</option>
+                            <option value="4">Bakery</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Tạo vào:</label>
+                        <input type="text" th:field="*{created_At}" class="form-control mb-4" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="loginType">Mô tả:</label>
+                        <input type="text" th:field="*{description}" class="form-control mb-4" placeholder="Login Type">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="loginType">Is Active:</label>
+                        <input type="text" th:field="*{is_Active}" class="form-control mb-4" placeholder="Password">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="phoneNumber">Is Selling:</label>
+                        <input type="text" th:field="*{is_Selling}" class="form-control mb-4" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="role">Price:</label>
+                        <input type="text" th:field="*{price}" class="form-control mb-4" placeholder="Role">
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="userName">Tên sản phẩm:</label>
+                        <input type="text" th:field="*{product_Name}" class="form-control mb-4" placeholder="User Name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="address">Quantity:</label>
+                        <input type="text" th:field="*{quantity}" class="form-control mb-4" placeholder="Address">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="address">Sold:</label>
+                        <input type="text" th:field="*{sold}" class="form-control mb-4" placeholder="Address">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="image">Hình ảnh:</label>
+                        <span th:each="image, iterStat : ${product.getProductImage()}">
+                            <input type="text" th:field="*{productImage[__${iterStat.index}__].url_Image}" class="form-control mb-4" placeholder="URL Hình ảnh">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-info col-2 mt-3 mx-auto">Sửa sản phẩm</button>
+            </div>
+
+        </form>
+
+        <hr>
+
+        <a th:href="@{/list_product}">Trở về danh sách</a>
+    </div>
+</body>
+
+</html>
